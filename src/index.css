@@ -203,6 +203,12 @@ img {
 
 .navbar-links a:hover::after { width: 100%; }
 
+.navbar-cta-group {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
 .navbar-cta {
   background: var(--gradient-red) !important;
   color: #fff !important;
@@ -212,11 +218,20 @@ img {
   border: none;
   cursor: pointer;
   transition: var(--transition);
+  font-size: 0.9rem;
+}
+
+.navbar-cta.book {
+  background: var(--gradient-blue) !important;
 }
 
 .navbar-cta:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-glow);
+}
+
+.navbar-cta.book:hover {
+  box-shadow: var(--shadow-blue-glow);
 }
 
 /* ===== Hero Section ===== */
@@ -362,6 +377,49 @@ img {
   gap: 1rem;
   align-items: center;
   flex-wrap: wrap;
+}
+
+.hero-socials {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.social-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg);
+  color: var(--text-secondary);
+}
+
+.social-pill:hover {
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.social-pill.facebook:hover {
+  background: rgba(24, 119, 242, 0.2);
+  border-color: rgba(24, 119, 242, 0.4);
+  color: #4A9AFF;
+}
+
+.social-pill.instagram:hover {
+  background: rgba(225, 48, 108, 0.2);
+  border-color: rgba(225, 48, 108, 0.4);
+  color: #E1306C;
+}
+
+.social-pill svg {
+  width: 18px;
+  height: 18px;
 }
 
 .btn {
@@ -600,8 +658,13 @@ img {
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
+  gap: 2rem;
+  align-items: start;
+}
+
+.connect-section.connect-3col {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
 }
 
 .connect-card {
@@ -651,21 +714,24 @@ img {
   transform: scale(1.05);
 }
 
-.fb-btn {
+.fb-btn, .ig-btn, .book-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.75rem;
-  background: #1877F2;
   color: #fff;
   padding: 0.9rem 2rem;
   border-radius: 14px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.95rem;
   transition: var(--transition);
   cursor: pointer;
   border: none;
   font-family: var(--font-secondary);
 }
+
+.fb-btn { background: #1877F2; }
+.ig-btn { background: linear-gradient(135deg, #F58529, #DD2A7B, #8134AF, #515BD4); }
+.book-btn { background: linear-gradient(135deg, #27ae60, #2ecc71); }
 
 .fb-btn:hover {
   background: #1565C0;
@@ -673,9 +739,31 @@ img {
   box-shadow: 0 8px 25px rgba(24, 119, 242, 0.4);
 }
 
-.fb-btn svg {
-  width: 22px;
-  height: 22px;
+.ig-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(225, 48, 108, 0.4);
+  filter: brightness(1.1);
+}
+
+.book-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(46, 204, 113, 0.4);
+  filter: brightness(1.1);
+}
+
+.fb-btn svg, .ig-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.connect-info-box {
+  max-width: 800px;
+  margin: 3rem auto 0;
+  padding: 2rem;
+  background: rgba(24, 119, 242, 0.08);
+  border-radius: 20px;
+  border: 1px solid rgba(24, 119, 242, 0.15);
+  text-align: center;
 }
 
 /* ===== Contact Section ===== */
@@ -683,8 +771,13 @@ img {
   max-width: 900px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 2rem;
+}
+
+.contact-grid.contact-4col {
+  max-width: 1100px;
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .contact-card {
@@ -773,14 +866,17 @@ img {
   .hero-text h1 { font-size: 2.8rem; }
   .hero-badges { justify-content: center; }
   .hero-actions { justify-content: center; }
+  .hero-socials { justify-content: center; }
   .hero-text .tagline { margin: 0 auto 2rem; }
   .hero-visual { margin-top: 2rem; }
-  .connect-section { grid-template-columns: 1fr; }
+  .connect-section, .connect-section.connect-3col { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
+  .contact-grid.contact-4col { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 768px) {
   .navbar-links { display: none; }
+  .navbar-cta.book { display: none; }
   .hero-text h1 { font-size: 2.2rem; }
   .section-header h2 { font-size: 2rem; }
   .why-grid { grid-template-columns: 1fr 1fr; }
@@ -791,6 +887,7 @@ img {
 
 @media (max-width: 480px) {
   .why-grid { grid-template-columns: 1fr; }
+  .contact-grid.contact-4col { grid-template-columns: 1fr; }
   .hero-text h1 { font-size: 1.8rem; }
   .section { padding: 4rem 1rem; }
 }
