@@ -698,6 +698,9 @@ img {
   position: relative;
   overflow: hidden;
   box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .connect-card:hover {
