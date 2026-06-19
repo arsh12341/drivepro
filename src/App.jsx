@@ -4,7 +4,7 @@ import { QRCodeSVG } from 'qrcode.react'
 
 const FACEBOOK_URL = 'https://www.facebook.com/people/Drivepro-School-of-driving/61585181883104/'
 const INSTAGRAM_URL = 'https://www.instagram.com/manu273752?igsh=Z2RleDNpbThtaGpr&utm_source=ig_contact_invite'
-const BOOKING_URL = 'https://onkarhu3x.setmore.com/onkar'
+
 const PHONE = '0404884445'
 
 // Web3Forms — get your free access key at https://web3forms.com
@@ -65,7 +65,7 @@ function Navbar() {
           <li><a href="#contact"     onClick={handleNavClick}>Contact</a></li>
         </ul>
         <div className="mobile-menu-ctas">
-          <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary" onClick={handleNavClick}>📅 Book Now</a>
+          <a href="#booking-form" className="btn btn-primary" onClick={handleNavClick}>📅 Book Now</a>
           <a href={`tel:${PHONE}`} className="btn btn-secondary" onClick={handleNavClick}>📞 {PHONE}</a>
         </div>
       </div>
@@ -89,7 +89,7 @@ function Navbar() {
             <li><a href="#contact">Contact</a></li>
           </ul>
           <div className="navbar-cta-group">
-            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="navbar-cta book">📅 Book Now</a>
+            <a href="#booking-form" className="navbar-cta book">📅 Book Now</a>
             <a href={`tel:${PHONE}`} className="navbar-cta">📞 Call Now</a>
             <button
               id="hamburger-btn"
@@ -137,7 +137,7 @@ function Hero() {
             </div>
           </div>
           <div className={`hero-actions ${inView ? 'animate-fadeInUp delay-4' : ''}`}>
-            <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+            <a href="#booking-form" className="btn btn-primary">
               📅 Book a Lesson
             </a>
             <a href={`tel:${PHONE}`} className="btn btn-secondary">
@@ -227,7 +227,7 @@ function Connect() {
         <h2>Follow Us Online</h2>
         <p>Scan QR codes, follow us on social media, or book your lesson online.</p>
       </div>
-      <div className="connect-section connect-3col">
+      <div className="connect-section connect-2col">
         <div className={`connect-card ${inView ? 'animate-fadeInLeft delay-2' : ''}`}>
           <div className="card-icon">📱</div>
           <h3>Facebook QR Code</h3>
@@ -266,24 +266,7 @@ function Connect() {
             Follow on Instagram
           </a>
         </div>
-        <div className={`connect-card ${inView ? 'animate-fadeInRight delay-4' : ''}`}>
-          <div className="card-icon">📅</div>
-          <h3>Book a Lesson</h3>
-          <p>Use our online booking system to schedule your driving lesson at a time that suits you.</p>
-          <div className="qr-wrapper">
-            <QRCodeSVG
-              value={BOOKING_URL}
-              size={180}
-              bgColor="#ffffff"
-              fgColor="#2ecc71"
-              level="H"
-              includeMargin={false}
-            />
-          </div>
-          <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer" className="book-btn">
-            📅 Book on Setmore
-          </a>
-        </div>
+
       </div>
       <div className={`connect-info-box ${inView ? 'animate-fadeInUp delay-5' : ''}`}>
         <p style={{ color: '#4A9AFF', fontWeight: 600, marginBottom: '0.5rem' }}>📍 Follow us for:</p>
@@ -307,7 +290,7 @@ function Contact() {
         <h2>Ready to Start Driving?</h2>
         <p>Contact us today and book your first lesson.</p>
       </div>
-      <div className="contact-grid contact-4col">
+      <div className="contact-grid contact-3col">
         <div className={`contact-card ${inView ? 'animate-fadeInUp delay-2' : ''}`}>
           <div className="icon">📞</div>
           <h4>Call Us</h4>
@@ -326,12 +309,7 @@ function Contact() {
           <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">Follow Us</a>
           <p>Behind-the-scenes content</p>
         </div>
-        <div className={`contact-card ${inView ? 'animate-fadeInUp delay-5' : ''}`}>
-          <div className="icon">📅</div>
-          <h4>Book Online</h4>
-          <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Book with Setmore</a>
-          <p>Choose your preferred time</p>
-        </div>
+
       </div>
     </section>
   )
@@ -703,7 +681,7 @@ function Footer() {
           <a href="#contact">Contact</a>
           <a href={FACEBOOK_URL} target="_blank" rel="noopener noreferrer">Facebook</a>
           <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">Book Online</a>
+          <a href="#booking-form">Book Online</a>
         </div>
         <p style={{ marginTop: '2rem', fontSize: '0.8rem' }}>
           © {new Date().getFullYear()} DrivePro School of Driving. All rights reserved.
