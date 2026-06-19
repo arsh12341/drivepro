@@ -424,6 +424,11 @@ function BookingForm() {
         'Medical Notes': formData.medicalNotes || 'None',
         'Additional Message': formData.message || 'None',
       }
+      if (!W3F_ACCESS_KEY) {
+        setErrorMsg('Form configuration error: missing API key. Please contact us directly.')
+        setStatus('error')
+        return
+      }
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -439,8 +444,8 @@ function BookingForm() {
         ndis: false, ndisType: '', medicalNotes: '', message: '',
       })
     } catch (err) {
-      console.error(err)
-      setErrorMsg('Failed to send. Please call us directly or try again later.')
+      console.error('Form submission error:', err)
+      setErrorMsg(err.message || 'Failed to send. Please call us directly or try again later.')
       setStatus('error')
     }
   }
