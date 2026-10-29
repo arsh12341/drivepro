@@ -60,6 +60,7 @@ function Navbar() {
         <ul className="mobile-menu-links">
           <li><a href="#services"    onClick={handleNavClick}>Services</a></li>
           <li><a href="#why-us"      onClick={handleNavClick}>Why Us</a></li>
+          <li><a href="#success-stories" onClick={handleNavClick}>Success</a></li>
           <li><a href="#connect"     onClick={handleNavClick}>Connect</a></li>
           <li><a href="#booking-form" onClick={handleNavClick}>Book a Lesson</a></li>
           <li><a href="#contact"     onClick={handleNavClick}>Contact</a></li>
@@ -84,6 +85,7 @@ function Navbar() {
           <ul className="navbar-links">
             <li><a href="#services">Services</a></li>
             <li><a href="#why-us">Why Us</a></li>
+            <li><a href="#success-stories">Success</a></li>
             <li><a href="#connect">Connect</a></li>
             <li><a href="#booking-form">Book a Lesson</a></li>
             <li><a href="#contact">Contact</a></li>
@@ -134,6 +136,10 @@ function Hero() {
             <div className="badge badge-p">
               <span className="badge-icon blue">P</span>
               P-Plate Ready
+            </div>
+            <div className="badge badge-a">
+              <span className="badge-icon green">A</span>
+              Automatic Only
             </div>
           </div>
           <div className={`hero-actions ${inView ? 'animate-fadeInUp delay-4' : ''}`}>
@@ -214,6 +220,61 @@ function WhyUs() {
           </div>
         ))}
       </div>
+    </section>
+  )
+}
+
+const SUCCESS_IMAGES = [
+  '/success/0ae185e2-e75b-470b-9f5f-a756d53f4f5f.jpeg',
+  '/success/1c7f0177-4f58-4bef-a7c3-fa22b97cd4ce.jpeg',
+  '/success/46190fdc-a0bf-4b0b-8736-35fbc52204d0.jpeg',
+  '/success/64f978b5-535d-44ba-89fb-254080c8213a.jpeg',
+  '/success/7e81f82f-c61c-4031-b41a-8b74606b055e.jpeg',
+  '/success/8489fc27-cd18-4700-bbd3-39e03512c2df.jpeg',
+  '/success/8d2101cb-0172-4a01-9fe7-4a311d56f235.jpeg',
+  '/success/91d7fe57-9895-478f-8184-635a528efed5.jpeg',
+]
+
+function SuccessStories() {
+  const [ref, inView] = useInView()
+  const [selectedImg, setSelectedImg] = useState(null)
+
+  return (
+    <section className="section section-darker" id="success-stories" ref={ref}>
+      <div className={`section-header ${inView ? 'animate-fadeInUp delay-1' : ''}`}>
+        <span className="label">Our Proud Moments</span>
+        <h2>Students Who Passed! 🎉</h2>
+        <p>Real students, real results. See our learners who aced their driving test with DrivePro.</p>
+      </div>
+      <div className="success-gallery">
+        {SUCCESS_IMAGES.map((src, i) => (
+          <div
+            key={i}
+            className={`success-card ${inView ? `animate-fadeInUp delay-${(i % 4) + 2}` : ''}`}
+            onClick={() => setSelectedImg(src)}
+          >
+            <div className="success-img-wrapper">
+              <img src={src} alt={`Student ${i + 1} passed their driving test`} loading="lazy" />
+              <div className="success-overlay">
+                <span className="success-badge">✅ PASSED</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className={`success-cta ${inView ? 'animate-fadeInUp delay-6' : ''}`}>
+        <p>Want to be our next success story?</p>
+        <a href="#booking-form" className="btn btn-primary">📅 Book Your Lesson Today</a>
+      </div>
+
+      {/* Lightbox */}
+      {selectedImg && createPortal(
+        <div className="lightbox-backdrop" onClick={() => setSelectedImg(null)}>
+          <button className="lightbox-close" onClick={() => setSelectedImg(null)} aria-label="Close">✕</button>
+          <img src={selectedImg} alt="Student success" className="lightbox-img" onClick={e => e.stopPropagation()} />
+        </div>,
+        document.body
+      )}
     </section>
   )
 }
@@ -323,9 +384,9 @@ function BookingForm() {
     email: '',
     phone: '',
     suburb: '',
-    transmission: '',
+    transmission: 'Automatic',
     lessonType: '',
-    instructorPref: '',
+    instructorPref: 'Male',
     experienceLevel: '',
     preferredDays: '',
     preferredTime: '',
@@ -439,7 +500,7 @@ function BookingForm() {
       setStatus('success')
       setFormData({
         fullName: '', dob: '', email: '', phone: '', suburb: '',
-        transmission: '', lessonType: '', instructorPref: '', experienceLevel: '',
+        transmission: 'Automatic', lessonType: '', instructorPref: 'Male', experienceLevel: '',
         preferredDays: '', preferredTime: '', licensingCentre: '',
         ndis: false, ndisType: '', medicalNotes: '', message: '',
       })
@@ -517,13 +578,10 @@ function BookingForm() {
             <label htmlFor="transmission">Transmission Type <span className="required">*</span></label>
             <select id="transmission" name="transmission"
               value={formData.transmission} onChange={handleChange} onBlur={handleBlur}
-              disabled={isSending}
-              className={touched.transmission && errors.transmission ? 'input-error' : ''}>
-              <option value="">Select transmission…</option>
-              <option value="Automatic">Automatic</option>
-              <option value="Manual">Manual</option>
+              disabled={isSending}>
+              <option value="Automatic">Automatic (Auto Only)</option>
             </select>
-            {touched.transmission && errors.transmission && <span className="field-error">{errors.transmission}</span>}
+            <small style={{ display: 'block', marginTop: '0.4rem', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>🚗 DrivePro provides automatic transmission lessons only.</small>
           </div>
           <div className="form-group">
             <label htmlFor="lessonType">Package / Lesson Type <span className="required">*</span></label>
@@ -540,14 +598,15 @@ function BookingForm() {
             {touched.lessonType && errors.lessonType && <span className="field-error">{errors.lessonType}</span>}
           </div>
           <div className="form-group">
-            <label htmlFor="instructorPref">Instructor Preference</label>
+            <label htmlFor="instructorPref">Instructor</label>
             <select id="instructorPref" name="instructorPref"
               value={formData.instructorPref} onChange={handleChange}
               disabled={isSending}>
-              <option value="">No preference</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
+              <option value="Male">Male Instructor (Only)</option>
             </select>
+            <small style={{ display: 'block', marginTop: '0.4rem', color: 'var(--text-secondary)', fontSize: '0.8rem' }}>
+              👨‍🏫 DrivePro currently has male instructors only.
+            </small>
           </div>
           <div className="form-group">
             <label htmlFor="experienceLevel">Experience Level <span className="required">*</span></label>
@@ -681,6 +740,7 @@ function Footer() {
           <a href="#hero">Home</a>
           <a href="#services">Services</a>
           <a href="#why-us">Why Us</a>
+          <a href="#success-stories">Success</a>
           <a href="#connect">Connect</a>
           <a href="#booking-form">Book a Lesson</a>
           <a href="#contact">Contact</a>
@@ -719,6 +779,7 @@ function App() {
       <Hero />
       <Services />
       <WhyUs />
+      <SuccessStories />
       <Connect />
       <BookingForm />
       <Contact />
